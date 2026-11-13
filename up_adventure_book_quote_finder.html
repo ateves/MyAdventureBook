@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP — My Adventure Book Quote Finder</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter, Fraunces (storybook serif), and JetBrains Mono (timestamps) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,800;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Fraunces', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        sky: {
+                            up: '#E6F4FA',
+                            mid: '#BCE3F5',
+                            deep: '#3B82F6',
+                        },
+                        parchment: {
+                            50: '#FDFBF7',
+                            100: '#F8F2E6',
+                            200: '#EFE3CD',
+                            300: '#DFC9A6',
+                            800: '#5C4328',
+                            900: '#3D2B19',
+                        },
+                        balloon: {
+                            red: '#EF4444',
+                            yellow: '#F59E0B',
+                            blue: '#0EA5E9',
+                            green: '#10B981',
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-[#BCE3F5] via-[#E6F4FA] to-[#FDFBF7] text-parchment-900 font-sans antialiased selection:bg-amber-200 selection:text-parchment-900 overflow-x-hidden">
+
+    <!-- Floating Decorative Balloons SVG Header Accent -->
+    <div class="relative w-full overflow-hidden pointer-events-none">
+        <div class="max-w-6xl mx-auto px-4 pt-4 flex justify-between items-start opacity-90">
+            <!-- Left Balloon Cluster -->
+            <svg class="w-24 h-28 sm:w-32 sm:h-36 -ml-4 -mt-2 drop-shadow-sm" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M58 75 C58 100, 62 120, 65 138" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="2 2"/>
+                <path d="M35 65 C45 95, 58 115, 65 138" stroke="#94A3B8" stroke-width="1.2"/>
+                <path d="M85 68 C75 95, 68 115, 65 138" stroke="#94A3B8" stroke-width="1.2"/>
+                <!-- Balloons -->
+                <ellipse cx="35" cy="42" rx="18" ry="22" fill="#EF4444"/>
+                <ellipse cx="30" cy="35" rx="4" ry="7" fill="#FCA5A5" opacity="0.6" transform="rotate(-20 30 35)"/>
+                <ellipse cx="85" cy="45" rx="17" ry="21" fill="#F59E0B"/>
+                <ellipse cx="80" cy="38" rx="4" ry="6" fill="#FDE68A" opacity="0.6" transform="rotate(-20 80 38)"/>
+                <ellipse cx="58" cy="32" rx="20" ry="25" fill="#0EA5E9"/>
+                <ellipse cx="52" cy="24" rx="5" ry="8" fill="#BAE6FD" opacity="0.6" transform="rotate(-20 52 24)"/>
+                <ellipse cx="62" cy="54" rx="16" ry="19" fill="#10B981"/>
+                <ellipse cx="44" cy="56" rx="14" ry="17" fill="#8B5CF6"/>
+            </svg>
+
+            <!-- Right Balloon Cluster -->
+            <svg class="w-24 h-28 sm:w-32 sm:h-36 -mr-4 -mt-2 drop-shadow-sm hidden sm:block" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M62 75 C62 100, 58 120, 55 138" stroke="#94A3B8" stroke-width="1.2"/>
+                <path d="M85 65 C75 95, 62 115, 55 138" stroke="#94A3B8" stroke-width="1.2"/>
+                <ellipse cx="82" cy="40" rx="18" ry="22" fill="#EC4899"/>
+                <ellipse cx="77" cy="33" rx="4" ry="7" fill="#FBCFE8" opacity="0.6" transform="rotate(-20 77 33)"/>
+                <ellipse cx="55" cy="34" rx="19" ry="24" fill="#F59E0B"/>
+                <ellipse cx="49" cy="26" rx="5" ry="8" fill="#FEF3C7" opacity="0.6" transform="rotate(-20 49 26)"/>
+                <ellipse cx="42" cy="55" rx="15" ry="18" fill="#EF4444"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pb-20 -mt-14 sm:-mt-20 relative z-10">
+        
+        <!-- Adventure Book Header Card -->
+        <header class="bg-parchment-100 border-2 border-parchment-300 rounded-3xl shadow-xl p-6 sm:p-8 mb-8 relative overflow-hidden">
+            <!-- Decorative Bookmark Ribbon -->
+            <div class="hidden md:flex flex-col items-center justify-center absolute top-0 right-10 w-12 h-24 bg-balloon-red text-white rounded-b-xl shadow-md">
+                <svg class="w-6 h-6 mt-2 text-amber-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L14.8 8.8L22 9.3L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.3L9.2 8.8L12 2Z"/>
+                </svg>
+                <span class="text-[10px] font-bold tracking-wider uppercase mt-1">1934</span>
+            </div>
+
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold tracking-wide uppercase mb-3">
+                        <span class="w-2 h-2 rounded-full bg-balloon-red animate-pulse"></span>
+                        Disney • Pixar (2009) • Runtime 01:36:18
+                    </div>
+                    <h1 class="font-serif text-3xl sm:text-5xl font-extrabold text-parchment-900 tracking-tight leading-tight">
+                        My Adventure Book
+                    </h1>
+                    <p class="text-parchment-800 text-base sm:text-lg mt-2 max-w-2xl">
+                        Search any iconic quote from <span class="font-semibold italic">UP</span> to pinpoint the exact hour, minute, and second mark it happens in the film.
+                    </p>
+                </div>
+
+                <!-- Action Button: Add Custom Quote -->
+                <div class="flex-shrink-0 pt-2 md:pt-6">
+                    <button id="openModalBtn" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-balloon-red hover:bg-red-600 active:scale-[0.98] text-white font-semibold px-5 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-all cursor-pointer">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                        </svg>
+                        <span>Log New Quote</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="mt-7 pt-6 border-t border-parchment-300/80 space-y-4">
+                <!-- Real-Time Search Bar -->
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-parchment-800/60">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                        </svg>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by quote (e.g., 'Squirrel!', 'Adventure is out there'), character, or scene..." 
+                        class="w-full pl-12 pr-12 py-4 bg-parchment-50 border-2 border-parchment-300 focus:border-sky-deep focus:ring-4 focus:ring-sky-deep/15 rounded-2xl text-parchment-900 placeholder-parchment-800/50 text-base transition-all outline-none shadow-inner"
+                        autocomplete="off"
+                    >
+                    <button 
+                        id="clearSearchBtn" 
+                        type="button" 
+                        aria-label="Clear search"
+                        class="hidden absolute inset-y-0 right-0 pr-4 flex items-center text-parchment-800/60 hover:text-parchment-900 cursor-pointer"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Character Filter Pills & Sort Controls -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <!-- Character Pills -->
+                    <div id="characterFilters" class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter quotes by character">
+                        <!-- Dynamically populated by JS -->
+                    </div>
+
+                    <!-- Sort & Counter -->
+                    <div class="flex items-center justify-between lg:justify-end gap-3 text-sm text-parchment-800">
+                        <span id="resultsCount" class="font-medium bg-parchment-200/70 px-3 py-1.5 rounded-xl">
+                            Showing 0 quotes
+                        </span>
+                        <select id="sortSelect" aria-label="Sort quotes" class="bg-parchment-50 border border-parchment-300 rounded-xl px-3 py-1.5 font-medium text-parchment-900 outline-none focus:border-sky-deep cursor-pointer">
+                            <option value="chronological">Timeline (00:00 → End)</option>
+                            <option value="reverse">Reverse Timeline</option>
+                            <option value="character">Character (A–Z)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Quotes Grid -->
+        <section id="quotesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5" aria-live="polite">
+            <!-- Quote cards injected via JS -->
+        </section>
+
+        <!-- Empty State (Hidden by default) -->
+        <div id="emptyState" class="hidden bg-parchment-50 border-2 border-dashed border-parchment-300 rounded-3xl p-10 text-center max-w-lg mx-auto mt-6">
+            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/>
+                </svg>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-parchment-900">No Adventure Entries Found</h3>
+            <p class="text-parchment-800 text-sm mt-2">
+                We couldn't find any quotes matching your current search or character filter. Try clearing your filters or log a new quote!
+            </p>
+            <button id="resetFiltersBtn" type="button" class="mt-5 px-5 py-2.5 bg-parchment-200 hover:bg-parchment-300 text-parchment-900 font-semibold rounded-xl transition-colors cursor-pointer">
+                Reset All Filters
+            </button>
+        </div>
+    </main>
+
+    <!-- Add Custom Quote Modal -->
+    <div id="addQuoteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-parchment-900/60 backdrop-blur-sm transition-opacity" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="bg-parchment-50 border-2 border-parchment-300 rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-8 relative animate-[fadeIn_0.2s_ease-out]">
+            <div class="flex items-center justify-between pb-4 border-b border-parchment-200">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-balloon-yellow/20 text-amber-700 flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L14.8 8.8L22 9.3L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.3L9.2 8.8L12 2Z"/>
+                        </svg>
+                    </span>
+                    <h2 id="modalTitle" class="font-serif text-2xl font-bold text-parchment-900">Add to Adventure Book</h2>
+                </div>
+                <button id="closeModalBtn" type="button" aria-label="Close modal" class="p-2 rounded-xl text-parchment-800 hover:bg-parchment-200 transition-colors cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="addQuoteForm" class="mt-5 space-y-4">
+                <!-- Quote Text -->
+                <div>
+                    <label for="quoteTextInput" class="block text-sm font-semibold text-parchment-900 mb-1">Quote Text *</label>
+                    <textarea id="quoteTextInput" rows="3" required placeholder='e.g., "Please let me in! The wolf is coming!"' class="w-full p-3.5 bg-white border border-parchment-300 rounded-2xl text-parchment-900 focus:border-sky-deep focus:ring-2 focus:ring-sky-deep/20 outline-none"></textarea>
+                </div>
+
+                <!-- Character & Custom Character -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="characterSelect" class="block text-sm font-semibold text-parchment-900 mb-1">Character *</label>
+                        <select id="characterSelect" class="w-full p-3 bg-white border border-parchment-300 rounded-2xl text-parchment-900 focus:border-sky-deep outline-none">
+                            <option value="Carl Fredricksen">Carl Fredricksen</option>
+                            <option value="Russell">Russell</option>
+                            <option value="Dug">Dug</option>
+                            <option value="Charles Muntz">Charles Muntz</option>
+                            <option value="Ellie">Ellie</option>
+                            <option value="Alpha">Alpha</option>
+                            <option value="Other">Other Character...</option>
+                        </select>
+                    </div>
+
+                    <div id="customCharacterWrapper" class="hidden">
+                        <label for="customCharacterInput" class="block text-sm font-semibold text-parchment-900 mb-1">Character Name *</label>
+                        <input type="text" id="customCharacterInput" placeholder="e.g., Beta, Gamma, Kevin" class="w-full p-3 bg-white border border-parchment-300 rounded-2xl text-parchment-900 focus:border-sky-deep outline-none">
+                    </div>
+                </div>
+
+                <!-- Exact Timestamp (HH : MM : SS) -->
+                <div>
+                    <label class="block text-sm font-semibold text-parchment-900 mb-1">Exact Timestamp (HH : MM : SS) *</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div>
+                            <div class="relative">
+                                <input type="number" id="hoursInput" min="0" max="1" value="0" required class="w-full p-3 bg-white border border-parchment-300 rounded-2xl font-mono text-center text-lg font-bold text-parchment-900 focus:border-sky-deep outline-none">
+                                <span class="block text-[11px] text-center text-parchment-800 mt-1 font-medium">Hours (0-1)</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="relative">
+                                <input type="number" id="minutesInput" min="0" max="59" value="15" required class="w-full p-3 bg-white border border-parchment-300 rounded-2xl font-mono text-center text-lg font-bold text-parchment-900 focus:border-sky-deep outline-none">
+                                <span class="block text-[11px] text-center text-parchment-800 mt-1 font-medium">Minutes (00-59)</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="relative">
+                                <input type="number" id="secondsInput" min="0" max="59" value="30" required class="w-full p-3 bg-white border border-parchment-300 rounded-2xl font-mono text-center text-lg font-bold text-parchment-900 focus:border-sky-deep outline-none">
+                                <span class="block text-[11px] text-center text-parchment-800 mt-1 font-medium">Seconds (00-59)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scene Context -->
+                <div>
+                    <label for="sceneInput" class="block text-sm font-semibold text-parchment-900 mb-1">Scene Context *</label>
+                    <input type="text" id="sceneInput" required placeholder="e.g., Floating above the clouds during the thunderstorm" class="w-full p-3 bg-white border border-parchment-300 rounded-2xl text-parchment-900 focus:border-sky-deep outline-none">
+                </div>
+
+                <!-- Form Error Message Box -->
+                <div id="formErrorBox" class="hidden p-3 rounded-xl bg-red-100 border border-red-300 text-red-800 text-sm font-medium"></div>
+
+                <div class="pt-3 flex items-center justify-end gap-3">
+                    <button type="button" id="cancelModalBtn" class="px-5 py-3 rounded-2xl font-semibold text-parchment-800 hover:bg-parchment-200 transition-colors cursor-pointer">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-3 rounded-2xl font-semibold bg-balloon-red hover:bg-red-600 text-white shadow-md transition-all cursor-pointer">
+                        Save Entry
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Banner (Replaces alert()) -->
+    <div id="toastNotification" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+        <div class="bg-parchment-900 text-parchment-50 px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-parchment-800">
+            <span class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                </svg>
+            </span>
+            <span id="toastMessage" class="text-sm font-medium">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Curated Database of Iconic Quotes from Disney Pixar's "UP" (2009)
+         * Runtime reference: 01:36:18 (Standard Theatrical / Disney+ Release)
+         */
+        const DEFAULT_QUOTES = [
+            {
+                id: 'up-1',
+                character: 'Charles Muntz',
+                quote: "Adventure is out there!",
+                timestamp: "00:02:14",
+                scene: "Newsreel footage at the movie theater inspiring young Carl.",
+                isCustom: false
+            },
+            {
+                id: 'up-2',
+                character: 'Ellie',
+                quote: "You don't talk very much. I like you!",
+                timestamp: "00:04:42",
+                scene: "Young Ellie meets shy young Carl inside the abandoned clubhouse.",
+                isCustom: false
+            },
+            {
+                id: 'up-3',
+                character: 'Ellie',
+                quote: "Cross your heart! Cross it! Good. You promised. No backing out.",
+                timestamp: "00:06:18",
+                scene: "Ellie shows Carl her 'My Adventure Book' and makes him promise to take her to Paradise Falls.",
+                isCustom: false
+            },
+            {
+                id: 'up-4',
+                character: 'Carl Fredricksen',
+                quote: "So long, boys! I'll send you a postcard from Paradise Falls!",
+                timestamp: "00:20:45",
+                scene: "Carl lifts his house into the sky with thousands of balloons to escape Shady Oaks.",
+                isCustom: false
+            },
+            {
+                id: 'up-5',
+                character: 'Russell',
+                quote: "Good afternoon. My name is Russell, and I am a Wilderness Explorer in Tribe 54, Sweatlodge 12. Are you in need of any assistance today, sir?",
+                timestamp: "00:23:52",
+                scene: "Russell knocks on Carl's front door 30,000 feet in the air.",
+                isCustom: false
+            },
+            {
+                id: 'up-6',
+                character: 'Russell',
+                quote: "The wilderness must be explored! Caw-caw! Roar!",
+                timestamp: "00:24:38",
+                scene: "Russell recites the Wilderness Explorer call while trying to earn his Assisting the Elderly badge.",
+                isCustom: false
+            },
+            {
+                id: 'up-7',
+                character: 'Carl Fredricksen',
+                quote: "No, no, no, you can't tell me what to do! It's my house! You're not supposed to be here anyway!",
+                timestamp: "00:26:12",
+                scene: "Carl tries to figure out what to do with his unexpected stowaway.",
+                isCustom: false
+            },
+            {
+                id: 'up-8',
+                character: 'Dug',
+                quote: "My name is Dug. I have just met you, and I love you.",
+                timestamp: "00:39:15",
+                scene: "Dug introduces himself to Carl and Russell in the jungles of Paradise Falls.",
+                isCustom: false
+            },
+            {
+                id: 'up-9',
+                character: 'Dug',
+                quote: "I was hiding under your porch because I love you. Can I stay?",
+                timestamp: "00:40:21",
+                scene: "Dug asks Carl if he can be his master after tracking Kevin.",
+                isCustom: false
+            },
+            {
+                id: 'up-10',
+                character: 'Dug',
+                quote: "Point! ... SQUIRREL!",
+                timestamp: "00:41:08",
+                scene: "Dug demonstrates his tracking skills before immediately getting distracted.",
+                isCustom: false
+            },
+            {
+                id: 'up-11',
+                character: 'Alpha',
+                quote: "I am Alpha. Do not touch the bird. The bird is mine.",
+                timestamp: "00:44:19",
+                scene: "Alpha confronts Dug and Carl with a malfunctioning high-pitched voice collar.",
+                isCustom: false
+            },
+            {
+                id: 'up-12',
+                character: 'Russell',
+                quote: "Sometimes it's the boring stuff I remember the most.",
+                timestamp: "00:48:34",
+                scene: "Russell talks to Carl around the campfire about eating ice cream on the curb with his dad.",
+                isCustom: false
+            },
+            {
+                id: 'up-13',
+                character: 'Charles Muntz',
+                quote: "Oh, I have no doubt you'll be leaving soon. In fact, I'll make sure of it.",
+                timestamp: "00:58:40",
+                scene: "Charles Muntz turns hostile aboard the Spirit of Adventure when he realizes Kevin is with them.",
+                isCustom: false
+            },
+            {
+                id: 'up-14',
+                character: 'Russell',
+                quote: "You gave away Kevin! You just gave her away!",
+                timestamp: "01:06:15",
+                scene: "Russell confronts Carl after Carl chooses to save his burning house over rescuing Kevin.",
+                isCustom: false
+            },
+            {
+                id: 'up-15',
+                character: 'Ellie',
+                quote: "Thanks for the adventure — now go have a new one! Love, Ellie.",
+                timestamp: "01:13:48",
+                scene: "Carl flips past the 'Stuff I'm Going to Do' page in Ellie's Adventure Book and finds her final note.",
+                isCustom: false
+            },
+            {
+                id: 'up-16',
+                character: 'Carl Fredricksen',
+                quote: "You know, it's just a house.",
+                timestamp: "01:26:54",
+                scene: "Carl watches his house gently drift down into the clouds after saving Russell and Kevin.",
+                isCustom: false
+            },
+            {
+                id: 'up-17',
+                character: 'Carl Fredricksen',
+                quote: "Russell, for assisting the elderly, and for performing above and beyond the call of duty, I would like to award you the highest honor I can bestow: the Ellie Badge.",
+                timestamp: "01:30:12",
+                scene: "Carl steps in for Russell's dad at the Wilderness Explorer ceremony and pins the grape soda cap on him.",
+                isCustom: false
+            }
+        ];
+
+        // Character Styling & Badge Metadata
+        const CHARACTER_STYLES = {
+            'Carl Fredricksen': { bg: 'bg-amber-100', text: 'text-amber-900', border: 'border-amber-300', dot: 'bg-amber-600' },
+            'Russell':          { bg: 'bg-orange-100', text: 'text-orange-900', border: 'border-orange-300', dot: 'bg-orange-500' },
+            'Dug':              { bg: 'bg-yellow-100', text: 'text-yellow-900', border: 'border-yellow-300', dot: 'bg-yellow-500' },
+            'Charles Muntz':    { bg: 'bg-slate-200', text: 'text-slate-800', border: 'border-slate-300', dot: 'bg-slate-600' },
+            'Ellie':            { bg: 'bg-rose-100', text: 'text-rose-900', border: 'border-rose-300', dot: 'bg-rose-500' },
+            'Alpha':            { bg: 'bg-purple-100', text: 'text-purple-900', border: 'border-purple-300', dot: 'bg-purple-600' },
+            'Default':          { bg: 'bg-sky-100', text: 'text-sky-900', border: 'border-sky-300', dot: 'bg-sky-500' }
+        };
+
+        const MAJOR_CHARACTERS = [
+            'All',
+            'Carl Fredricksen',
+            'Russell',
+            'Dug',
+            'Charles Muntz',
+            'Ellie',
+            'Alpha'
+        ];
+
+        const STORAGE_KEY = 'up_adventure_book_custom_quotes_v1';
+
+        // Application State
+        let quotes = [];
+        let activeCharacter = 'All';
+        let searchQuery = '';
+        let sortOrder = 'chronological';
+        let toastTimeout = null;
+
+        // DOM References
+        const quotesContainer = document.getElementById('quotesContainer');
+        const characterFiltersEl = document.getElementById('characterFilters');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const sortSelect = document.getElementById('sortSelect');
+        const resultsCount = document.getElementById('resultsCount');
+        const emptyState = document.getElementById('emptyState');
+        const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+
+        // Modal References
+        const addQuoteModal = document.getElementById('addQuoteModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const cancelModalBtn = document.getElementById('cancelModalBtn');
+        const addQuoteForm = document.getElementById('addQuoteForm');
+        const characterSelect = document.getElementById('characterSelect');
+        const customCharacterWrapper = document.getElementById('customCharacterWrapper');
+        const customCharacterInput = document.getElementById('customCharacterInput');
+        const formErrorBox = document.getElementById('formErrorBox');
+
+        /**
+         * Convert HH:MM:SS string into total seconds for accurate chronological sorting
+         */
+        function timestampToSeconds(ts) {
+            try {
+                const parts = ts.split(':').map(Number);
+                if (parts.length !== 3 || parts.some(isNaN)) return 0;
+                return parts[0] * 3600 + parts[1] * 60 + parts[2];
+            } catch (e) {
+                return 0;
+            }
+        }
+
+        /**
+         * Format hours, minutes, seconds integers to padded HH:MM:SS
+         */
+        function formatTimestamp(h, m, s) {
+            const pad = (num) => String(num).padStart(2, '0');
+            return `${pad(h)}:${pad(m)}:${pad(s)}`;
+        }
+
+        /**
+         * Load default + localStorage custom quotes safely
+         */
+        function loadQuotes() {
+            let customQuotes = [];
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed)) {
+                        customQuotes = parsed;
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to read custom quotes from localStorage:", err);
+            }
+            quotes = [...DEFAULT_QUOTES, ...customQuotes];
+        }
+
+        /**
+         * Save custom quotes back to localStorage
+         */
+        function saveCustomQuotes() {
+            try {
+                const customOnly = quotes.filter(q => q.isCustom);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(customOnly));
+            } catch (err) {
+                console.error("Failed to save custom quotes to localStorage:", err);
+                showToast("Warning: Could not save to browser storage.");
+            }
+        }
+
+        /**
+         * Escape HTML entities to prevent XSS when rendering user inputs
+         */
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        /**
+         * Highlight matching search substring cleanly
+         */
+        function highlightMatch(text, query) {
+            const safeText = escapeHTML(text);
+            if (!query.trim()) return safeText;
+            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedQuery})`, 'gi');
+            return safeText.replace(regex, '<mark class="bg-amber-200/90 text-parchment-900 rounded px-0.5 font-semibold">$1</mark>');
+        }
+
+        /**
+         * Render Character Filter Pills
+         */
+        function renderCharacterFilters() {
+            characterFiltersEl.innerHTML = '';
+            MAJOR_CHARACTERS.forEach(char => {
+                const isActive = activeCharacter === char;
+                const count = char === 'All' 
+                    ? quotes.length 
+                    : quotes.filter(q => q.character.toLowerCase() === char.toLowerCase()).length;
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = isActive
+                    ? 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-bold bg-sky-deep text-white shadow-sm transition-all cursor-pointer'
+                    : 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold bg-parchment-50 hover:bg-parchment-200 text-parchment-900 border border-parchment-300 transition-all cursor-pointer';
+
+                btn.innerHTML = `
+                    <span>${escapeHTML(char)}</span>
+                    <span class="text-xs px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/25 text-white' : 'bg-parchment-200 text-parchment-800'}">${count}</span>
+                `;
+
+                btn.addEventListener('click', () => {
+                    activeCharacter = char;
+                    renderCharacterFilters();
+                    renderQuotes();
+                });
+
+                characterFiltersEl.appendChild(btn);
+            });
+        }
+
+        /**
+         * Filter, Sort, and Render Quote Cards
+         */
+        function renderQuotes() {
+            const qLower = searchQuery.trim().toLowerCase();
+
+            // 1. Filter
+            let filtered = quotes.filter(item => {
+                const matchesChar = activeCharacter === 'All' || 
+                    item.character.toLowerCase() === activeCharacter.toLowerCase();
+                
+                if (!matchesChar) return false;
+
+                if (!qLower) return true;
+                return (
+                    item.quote.toLowerCase().includes(qLower) ||
+                    item.character.toLowerCase().includes(qLower) ||
+                    item.scene.toLowerCase().includes(qLower) ||
+                    item.timestamp.includes(qLower)
+                );
+            });
+
+            // 2. Sort
+            filtered.sort((a, b) => {
+                if (sortOrder === 'chronological') {
+                    return timestampToSeconds(a.timestamp) - timestampToSeconds(b.timestamp);
+                } else if (sortOrder === 'reverse') {
+                    return timestampToSeconds(b.timestamp) - timestampToSeconds(a.timestamp);
+                } else if (sortOrder === 'character') {
+                    return a.character.localeCompare(b.character) || (timestampToSeconds(a.timestamp) - timestampToSeconds(b.timestamp));
+                }
+                return 0;
+            });
+
+            // Update count badge
+            resultsCount.textContent = `Showing ${filtered.length} ${filtered.length === 1 ? 'quote' : 'quotes'}`;
+
+            // Handle Empty State
+            if (filtered.length === 0) {
+                quotesContainer.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // 3. Render Cards
+            quotesContainer.innerHTML = filtered.map(item => {
+                const style = CHARACTER_STYLES[item.character] || CHARACTER_STYLES['Default'];
+                const highlightedQuote = highlightMatch(item.quote, searchQuery);
+                const highlightedScene = highlightMatch(item.scene, searchQuery);
+                const highlightedChar = highlightMatch(item.character, searchQuery);
+
+                return `
+                    <article class="group bg-parchment-50 hover:bg-white border-2 border-parchment-300 hover:border-sky-deep/60 rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative">
+                        <div>
+                            <!-- Top Row: Character Badge & Exact Timestamp -->
+                            <div class="flex items-center justify-between gap-2 flex-wrap mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${style.bg} ${style.text} ${style.border}">
+                                        <span class="w-2 h-2 rounded-full ${style.dot}"></span>
+                                        ${highlightedChar}
+                                    </span>
+                                    ${item.isCustom ? `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Custom</span>` : ''}
+                                </div>
+
+                                <!-- Timestamp Pill -->
+                                <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-parchment-900 text-amber-300 font-mono text-sm font-bold shadow-xs" title="Exact Movie Timestamp (HH:MM:SS)">
+                                    <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span>${escapeHTML(item.timestamp)}</span>
+                                </div>
+                            </div>
+
+                            <!-- Quote Body -->
+                            <blockquote class="font-serif text-lg sm:text-xl font-semibold text-parchment-900 leading-relaxed mb-4">
+                                “${highlightedQuote}”
+                            </blockquote>
+                        </div>
+
+                        <!-- Footer: Scene Context & Actions -->
+                        <div class="pt-4 border-t border-parchment-200 flex items-end justify-between gap-3">
+                            <p class="text-xs sm:text-sm text-parchment-800 leading-snug">
+                                <span class="font-bold uppercase tracking-wider text-[10px] text-parchment-800/70 block mb-0.5">Scene Context</span>
+                                ${highlightedScene}
+                            </p>
+
+                            <div class="flex items-center gap-1.5 flex-shrink-0">
+                                ${item.isCustom ? `
+                                    <button 
+                                        type="button" 
+                                        onclick="deleteCustomQuote('${item.id}')" 
+                                        aria-label="Delete custom quote"
+                                        title="Remove custom quote"
+                                        class="p-2.5 rounded-xl text-rose-600 hover:bg-rose-100 transition-colors cursor-pointer"
+                                    >
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
+                                        </svg>
+                                    </button>
+                                ` : ''}
+
+                                <button 
+                                    type="button" 
+                                    onclick="copyQuoteToClipboard('${item.id}')" 
+                                    aria-label="Copy quote and timestamp"
+                                    class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-parchment-200/80 hover:bg-sky-deep hover:text-white text-parchment-900 text-xs font-bold transition-colors cursor-pointer"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"/>
+                                    </svg>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Copy quote and timestamp using reliable fallback execCommand('copy')
+         */
+        window.copyQuoteToClipboard = function(id) {
+            const item = quotes.find(q => q.id === id);
+            if (!item) return;
+
+            const formattedText = `"${item.quote}" — ${item.character} (UP, ${item.timestamp})`;
+            
+            const textArea = document.createElement('textarea');
+            textArea.value = formattedText;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            textArea.style.top = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast(`Copied "${item.timestamp}" quote to clipboard!`);
+                } else {
+                    showToast("Unable to copy text.");
+                }
+            } catch (err) {
+                console.error("Copy command failed:", err);
+                showToast("Unable to copy text.");
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        };
+
+        /**
+         * Delete a user-added custom quote
+         */
+        window.deleteCustomQuote = function(id) {
+            quotes = quotes.filter(q => q.id !== id);
+            saveCustomQuotes();
+            renderCharacterFilters();
+            renderQuotes();
+            showToast("Custom entry removed from Adventure Book.");
+        };
+
+        /**
+         * Display floating toast feedback
+         */
+        function showToast(message) {
+            const toastEl = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
+
+            toastEl.classList.remove('opacity-0', 'translate-y-4');
+            toastEl.classList.add('opacity-100', 'translate-y-0');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toastEl.classList.remove('opacity-100', 'translate-y-0');
+                toastEl.classList.add('opacity-0', 'translate-y-4');
+            }, 2800);
+        }
+
+        /**
+         * Modal Open / Close Helpers
+         */
+        function openModal() {
+            formErrorBox.classList.add('hidden');
+            addQuoteModal.classList.remove('hidden');
+            document.getElementById('quoteTextInput').focus();
+        }
+
+        function closeModal() {
+            addQuoteModal.classList.add('hidden');
+            addQuoteForm.reset();
+            customCharacterWrapper.classList.add('hidden');
+            formErrorBox.classList.add('hidden');
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            clearSearchBtn.classList.toggle('hidden', searchQuery.length === 0);
+            renderQuotes();
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchQuery = '';
+            searchInput.value = '';
+            clearSearchBtn.classList.add('hidden');
+            searchInput.focus();
+            renderQuotes();
+        });
+
+        sortSelect.addEventListener('change', (e) => {
+            sortOrder = e.target.value;
+            renderQuotes();
+        });
+
+        resetFiltersBtn.addEventListener('click', () => {
+            activeCharacter = 'All';
+            searchQuery = '';
+            searchInput.value = '';
+            clearSearchBtn.classList.add('hidden');
+            renderCharacterFilters();
+            renderQuotes();
+        });
+
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking backdrop
+        addQuoteModal.addEventListener('click', (e) => {
+            if (e.target === addQuoteModal) closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !addQuoteModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Toggle custom character input
+        characterSelect.addEventListener('change', (e) => {
+            if (e.target.value === 'Other') {
+                customCharacterWrapper.classList.remove('hidden');
+                customCharacterInput.required = true;
+            } else {
+                customCharacterWrapper.classList.add('hidden');
+                customCharacterInput.required = false;
+            }
+        });
+
+        // Handle New Quote Submission
+        addQuoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formErrorBox.classList.add('hidden');
+
+            const quoteText = document.getElementById('quoteTextInput').value.trim();
+            const selectedChar = characterSelect.value;
+            const finalChar = selectedChar === 'Other' 
+                ? customCharacterInput.value.trim() 
+                : selectedChar;
+            const sceneText = document.getElementById('sceneInput').value.trim();
+
+            const hours = parseInt(document.getElementById('hoursInput').value, 10);
+            const minutes = parseInt(document.getElementById('minutesInput').value, 10);
+            const seconds = parseInt(document.getElementById('secondsInput').value, 10);
+
+            // Validation
+            if (!quoteText || !finalChar || !sceneText) {
+                formErrorBox.textContent = "Please fill in all required fields.";
+                formErrorBox.classList.remove('hidden');
+                return;
+            }
+
+            if (isNaN(hours) || isNaN(minutes) || isNaN(seconds) ||
+                hours < 0 || hours > 1 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
+                formErrorBox.textContent = "Please enter a valid timestamp (Hours: 0-1, Minutes: 0-59, Seconds: 0-59).";
+                formErrorBox.classList.remove('hidden');
+                return;
+            }
+
+            // UP total runtime check (01:36:18)
+            const totalSecs = hours * 3600 + minutes * 60 + seconds;
+            if (totalSecs > (1 * 3600 + 36 * 60 + 18)) {
+                formErrorBox.textContent = "Timestamp exceeds UP's runtime (01:36:18).";
+                formErrorBox.classList.remove('hidden');
+                return;
+            }
+
+            const newEntry = {
+                id: 'custom-' + Date.now(),
+                character: finalChar,
+                quote: quoteText,
+                timestamp: formatTimestamp(hours, minutes, seconds),
+                scene: sceneText,
+                isCustom: true
+            };
+
+            quotes.push(newEntry);
+            saveCustomQuotes();
+
+            // Reset filter to All so user immediately sees their new entry
+            activeCharacter = 'All';
+            renderCharacterFilters();
+            renderQuotes();
+            closeModal();
+            showToast(`Added "${newEntry.timestamp}" entry to your Adventure Book!`);
+        });
+
+        // Initialize App on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadQuotes();
+            renderCharacterFilters();
+            renderQuotes();
+        });
+    </script>
+</body>
+</html>
